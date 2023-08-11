@@ -1,0 +1,89 @@
+// Show databases
+show dbs
+
+// Create new shopDB database
+use shopDB
+
+// What database I'm in
+db
+
+// Create and insert into product collection
+db.products.insertOne({_id: 1, name: "Pen", price: 1.20})
+
+// Show the collections
+show collections
+
+// Bring up all the documentation on product collection
+db.products.find()
+
+// Bring up a specific document
+db.products.find({name: "Pencil"})
+
+// Bring up the documents where price is greater than 1
+db.products.find({price: {$gt: 1}})
+
+// Get the name of product using id
+// Output: { "_id" : 1, "name" : "Pen" }
+db.products.find({_id: 1}, {name: 1})
+
+// Get only the name of product using id
+// Output: { "name" : "Pen" }
+db.products.find({_id: 1}, {name: 1, _id: 0})
+
+// Update data inside database
+// Add/update stock with value 32 in document with id 1
+db.products.updateOne({_id: 1}, {$set: {stock: 32}})
+
+// Delete a document by name
+db.products.deleteOne({name: "Pencil"})
+
+// Insert a document in proudcts collection
+db.products.insert(
+    {
+        _id: 3,
+        name: "Rubber",
+        price: 1.25,
+        stock: 43,
+        reviews: [
+            {
+                authorName: "James",
+                rating: 4,
+                review: "Good quality!"
+            },
+            {
+                authorName: "John",
+                rating: 5,
+                review: "Awesome rubber!"
+            }
+        ]
+    }
+)
+
+// Insert document to products collection
+db.products.insert(
+    {
+        _id: 2,
+        name: "Pencil",
+        price: 0.8,
+        stock: 12,
+        reviews: [
+            {
+                authorName: "George",
+                rating: 3,
+                review: "Medium quality!"
+            },
+            {
+                authorName: "Bob",
+                rating: 4.5,
+                review: "Great quality!"
+            }
+        ]
+    }
+)
+
+// Since you don't have write permission to /data/db
+mongod --dbpath ~/data/db
+
+// Delete a database
+use fruitsDB
+db.dropDatabase()

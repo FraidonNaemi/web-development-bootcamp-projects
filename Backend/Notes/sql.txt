@@ -1,0 +1,79 @@
+-- Create products table
+CREATE TABLE products (
+	id INT NOT NULL,
+	name STRING,
+  	price MONEY,
+  PRIMARY KEY (id)
+);
+
+-- Insert data into products table
+INSERT INTO products
+VALUES (1, "Pen", 1.20);
+
+-- Insert data into products table using column names
+INSERT INTO products (id, name)
+VALUES (2, "Pencil");
+
+-- Select statements
+SELECT * FROM products; 
+SELECT id, name FROM products;
+SELECT * FROM products WHERE id = 1;
+
+-- Update a specific column value in products table
+UPDATE products
+SET price = 0.80
+WHERE id = 2;
+
+-- Add a new column with value in products table
+ALTER TABLE products
+ADD stock INT;
+
+-- Delete a row from products table
+DELETE FROM products
+WHERE id = 2;
+
+-- Create customers table
+CREATE TABLE customers (
+    id INT NOT NULL,
+    first_name STRING,
+    last_name STRING,
+    address STRING,
+    PRIMARY KEY (id)
+);
+
+-- Insert data to customers table
+INSERT INTO customers
+VALUES (1, "John", "Docker", "20 George St");
+
+-- Insert data to customers table
+INSERT INTO customers
+VALUES (2, "Calvin", "Joe", "2 Macquarie St");
+
+-- Create orders table with PK & FK
+CREATE TABLE orders (
+    id INT NOT NULL,
+    order_number INT,
+    customer_id INT,
+    product_id INT,
+    PRIMARY KEY (id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- Insert data to orders table
+INSERT INTO orders
+VALUES (1, 4362, 2, 1);
+
+-- Insert data to orders table
+INSERT INTO orders
+VALUES (2, 3256, 1, 1);
+
+-- Join orders with customers tables
+SELECT orders.order_number, customers.first_name, customers.last_name, customers.address
+FROM orders
+INNER JOIN customers ON orders.customer_id = customers.id;
+
+-- Join orders with products tables
+SELECT orders.order_number, products.name, products.price
+FROM orders
+INNER JOIN products ON orders.product_id = products.id;
