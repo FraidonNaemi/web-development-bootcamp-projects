@@ -1,0 +1,6 @@
+Run React Application:
+
+$ npm i
+
+$ npm start
+
